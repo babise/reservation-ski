@@ -1,13 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const CommentSchema = new Schema({
-	id: {
-		type: Number,
-		unique: true,
-		required: true,
-		autoIncrement: true,
-	},
+const commentSchema = new Schema({
 	username: {
 		type: String,
 		required: true,
@@ -19,9 +13,12 @@ const CommentSchema = new Schema({
 	stars: {
 		type: Number,
 		required: true,
+		min: 1,
+		max: 5,
 	},
 	createdAt: {
 		type: Date,
+		required: true,
 		default: Date.now,
 	},
 	post: {
@@ -31,4 +28,6 @@ const CommentSchema = new Schema({
 	},
 });
 
-module.exports = mongoose.model("Comment", CommentSchema);
+const Comment = mongoose.model("Comment", commentSchema);
+
+module.exports = Comment;

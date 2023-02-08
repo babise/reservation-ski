@@ -1,13 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const PostSchema = new Schema({
-	id: {
-		type: Number,
-		unique: true,
-		required: true,
-		autoIncrement: true,
-	},
+const postSchema = new Schema({
 	title: {
 		type: String,
 		required: true,
@@ -19,9 +13,15 @@ const PostSchema = new Schema({
 		type: Number,
 		required: true,
 	},
+	size: {
+		type: Number,
+		required: true,
+		enum: [140, 145, 150, 155, 160, 165, 170, 175, 180, 185, 190],
+	},
 	style: {
 		type: String,
 		required: true,
+		enum: ["Freeride", "Freestyle", "Piste", "Polyvalent"],
 	},
 	price: {
 		type: Number,
@@ -38,6 +38,7 @@ const PostSchema = new Schema({
 	],
 	createdAt: {
 		type: Date,
+		required: true,
 		default: Date.now,
 	},
 	bookings: [
@@ -48,8 +49,11 @@ const PostSchema = new Schema({
 	],
 	isAvailable: {
 		type: Boolean,
+		required: true,
 		default: true,
 	},
 });
 
-module.exports = mongoose.model("Post", PostSchema);
+const Post = mongoose.model("Post", postSchema);
+
+module.exports = Post;

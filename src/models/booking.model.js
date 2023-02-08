@@ -1,19 +1,14 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const BookingSchema = new Schema({
-	id: {
-		type: Number,
-		unique: true,
-		required: true,
-		autoIncrement: true,
-	},
+const bookingSchema = new Schema({
 	telephoneNumber: {
 		type: String,
 		required: true,
 	},
 	createdAt: {
 		type: Date,
+		required: true,
 		default: Date.now,
 	},
 	post: {
@@ -23,4 +18,6 @@ const BookingSchema = new Schema({
 	},
 });
 
-module.exports = mongoose.model("Booking", BookingSchema);
+const Booking = mongoose.model("Booking", bookingSchema);
+
+module.exports = Booking;
